@@ -75,3 +75,4 @@
 (setq auto-mode-alist (append '(("\\.\frm\\|bas\\|cls\$" .
                                  visual-basic-mode)) auto-mode-alist))
 
+;; local edit
