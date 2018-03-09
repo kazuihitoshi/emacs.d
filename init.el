@@ -76,3 +76,4 @@
                                  visual-basic-mode)) auto-mode-alist))
 
 ;; local edit
+;; github.com edit
