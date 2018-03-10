@@ -5,14 +5,20 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(require 'twittering-mode)
-(add-to-list 'load-path "C:\opt\twittering-mode-3.0.0")
-(setq twittering-use-master-password t)
-(setq twittering-auth-method 'oauth)
-(setq twittering-allow-insecure-server-cert t)
-(add-to-list 'load-path "C:\opt\epg\epg-0.0.16")
+(keyboard-translate ?\C-h ?\C-?)
+
+
+;; twitter mode
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+;;(require 'twittering-mode)
+;;(add-to-list 'load-path "C:\opt\twittering-mode-3.0.0")
+;;(setq twittering-use-master-password t)
+;;(setq twittering-auth-method 'oauth)
+;;(setq twittering-allow-insecure-server-cert t)
+;;(add-to-list 'load-path "C:\opt\epg\epg-0.0.16")
 ;;
+
+
 (global-set-key "\C-h" 'delete-backward-char)
 
 ;; javascriptmode
@@ -58,9 +64,25 @@
   (interactive)
   (let* ((file (dired-get-filename)))
     (message "WindowsOpening %s..." file)
-      (call-process "cmd.exe" nil 0 nil "/c" "start" "" (convert-standard-filename file) )
+   (call-process "cmd.exe" nil 0 nil "/c" "start" "" (convert-standard-filename file) )
     (message "WindowsOpening %s done" file)
    ))
+
+;;等倍フォント設定
+;;http://ongaeshi.hatenablog.com/entry/20110118/1295373477
+(set-default-font "ＭＳ ゴシック-9")
+;; 行間を開ける量、これを調整することでかなり見え方が変わる
+(setq-default line-spacing 2)
+;;ange-ftp
+;;http://u.hoso.net/2009/12/ntemacs-ftp.html
+(setq ange-ftp-ftp-program-name "C:\\emacs-ime\\bin\\ftp.exe")
+
+(setq backup-directory-alist
+  (cons (cons ".*" (expand-file-name "~/../Local/Temp"))
+        backup-directory-alist))
+
+(set-language-environment 'Japanese)
+(prefer-coding-system 'shift_jis)
 ;; 警告音の代わりに画面フラッシュ
 (setq visible-bell t)
 
@@ -75,6 +97,34 @@
 (setq auto-mode-alist (append '(("\\.\frm\\|bas\\|cls\$" .
                                  visual-basic-mode)) auto-mode-alist))
 
-;; local edit
-;; github.com edit
-;; test edit 
+;;Emacs で全角スペース/タブ文字を可視化
+;;http://weboo-returns.com/blog/emacs-shows-double-space-and-tab/
+(setq whitespace-style
+      '(tabs tab-mark spaces space-mark))
+(setq whitespace-space-regexp "\\(\x3000+\\)")
+(setq whitespace-display-mappings
+      '((space-mark ?\x3000 [?\□])
+        (tab-mark   ?\t   [?\xBB ?\t])
+        ))
+(require 'whitespace)
+(global-whitespace-mode 1)
+(set-face-foreground 'whitespace-space "LightSlateGray")
+(set-face-background 'whitespace-space "DarkSlateGray")
+(set-face-foreground 'whitespace-tab "LightSlateGray")
+(set-face-background 'whitespace-tab "DarkSlateGray")
+
+(require 'package) ; パッケージ機能を有効にする
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t) ; MELPAリポジトリを追加する
+(package-initialize) ; インストールされているパッケージを初期化する
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (ssh vbasense))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
