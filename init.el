@@ -7,33 +7,19 @@
 
 (keyboard-translate ?\C-h ?\C-?)
 
-
-;; twitter mode
-;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-;;(require 'twittering-mode)
-;;(add-to-list 'load-path "C:\opt\twittering-mode-3.0.0")
-;;(setq twittering-use-master-password t)
-;;(setq twittering-auth-method 'oauth)
-;;(setq twittering-allow-insecure-server-cert t)
-;;(add-to-list 'load-path "C:\opt\epg\epg-0.0.16")
-;;
-
-
-(global-set-key "\C-h" 'delete-backward-char)
-
 ;; javascriptmode
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;;(require 'js2-mode)
+;;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 ;;
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/auto-complete"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/popup-el"))
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/auto-complete"))
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/popup-el"))
 ;;(add-to-list 'load-path "c:\opt\popup-el")
-(require 'auto-complete)
-(require 'auto-complete-config)
-(global-auto-complete-mode t)
-(define-key ac-completing-map (kbd "C-n") 'ac-next)
-(define-key ac-completing-map (kbd "C-p") 'ac-previous)
-(define-key ac-completing-map (kbd "TAB") 'ac-complete)
+;;(require 'auto-complete)
+;;(require 'auto-complete-config)
+;;(global-auto-complete-mode t)
+;;(define-key ac-completing-map (kbd "C-n") 'ac-next)
+;;(define-key ac-completing-map (kbd "C-p") 'ac-previous)
+;;(define-key ac-completing-map (kbd "TAB") 'ac-complete)
 ;; web-mode
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/web-mode"))
 (require 'web-mode)
@@ -54,7 +40,6 @@
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
 (yas-global-mode 1)
-
 ;; ファイルをWindowsの関連付けで開く
 (add-hook 'dired-load-hook (function (lambda ()
     (define-key dired-mode-map "w" 'dired-open-file)
@@ -68,6 +53,9 @@
     (message "WindowsOpening %s done" file)
    ))
 
+;;      (call-process-shell-command (convert-standard-filename file)  )
+;;   (call-process "cmd.exe" nil 0 nil "/c" "start" "" \"(convert-standard-filename file)\" )
+   
 ;;等倍フォント設定
 ;;http://ongaeshi.hatenablog.com/entry/20110118/1295373477
 (set-default-font "ＭＳ ゴシック-9")
@@ -85,17 +73,8 @@
 (prefer-coding-system 'shift_jis)
 ;; 警告音の代わりに画面フラッシュ
 (setq visible-bell t)
-
-;;angy-ftp
-(setq ange-ftp-ftp-program-name "C:\\opt\\command\\ftp.exe")
-;;grep-find
 ;;find をcygwin64を優先で呼ぶ
 (setenv "PATH" (format "c:\\cygwin64\\bin;%s" (getenv "PATH")))
-
-;;excel
-(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-(setq auto-mode-alist (append '(("\\.\frm\\|bas\\|cls\$" .
-                                 visual-basic-mode)) auto-mode-alist))
 
 ;;Emacs で全角スペース/タブ文字を可視化
 ;;http://weboo-returns.com/blog/emacs-shows-double-space-and-tab/
