@@ -100,10 +100,26 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (ssh vbasense))))
+ '(package-selected-packages (quote (magit magit-annex magit-filenotify ssh vbasense))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; git 
+(setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
+;; ssh putty
+;; https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+(setenv "PATH" (concat "C:/Program Files/PuTTY" ";" (getenv "PATH")))
+(setq tramp-default-method "psftp")
+;; magit チュートリアル
+;; https://qiita.com/maueki/items/70dbf62d8bd2ee348274
+;;
+;;リポジトリ作成
+;; M-x magit-init 
+(global-set-key (kbd "C-x g") 'magit-status)
+
+
+
