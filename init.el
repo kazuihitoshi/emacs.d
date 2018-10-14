@@ -152,6 +152,10 @@
        ))))
 
 ;; キーバインド設定
+;; C-S-f はコントロールキーとShiftキーを押しながら fキーを押すの意味
+;;control alt  meta hyper shift
+;;C       A    M    H     S
+;;http://d.hatena.ne.jp/tomoya/20090415/1239809615
 (with-eval-after-load "sql"
   (define-key sql-mode-map (kbd "C-S-f") 'my-format-sql))
 
@@ -168,3 +172,42 @@
 ;;(setq migemo-coding-system 'utf-8-unix)
 ;;(load-library "migemo")
 ;;(migemo-init)
+
+(autoload 'visual-basic-mode "~/.emacs.d/opt/visual-basic-mode" "Visual Basic mode." t)
+ (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\)$" .
+                                  visual-basic-mode)) auto-mode-alist))
+;;自動インデントを無効化
+(add-hook 'text-mode-hook '(lambda ()
+			      (electric-indent-local-mode -1)))
+(fset 'hogehoge
+   "this is a pen\C-a")
+(global-set-key (kbd "M-k") 'hogehoge)
+
+
+;; init.el reload
+(global-set-key
+  [f12] 'eval-buffer)
+
+
+;; ウィンドウを透明にする
+;; アクティブウィンドウ／非アクティブウィンドウ（alphaの値で透明度を指定）
+(add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
+
+;; メニューバーを消す
+;;(menu-bar-mode -1)
+
+;; ツールバーを消す
+(tool-bar-mode -1)
+
+
+;; カーソル行をハイライトする
+(global-hl-line-mode t)
+
+;; 対応する括弧を光らせる
+(show-paren-mode 1)
+
+;; "yes or no" の選択を "y or n" にする
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(require 'tramp )
+(setq tramp-default-method "ssh")
