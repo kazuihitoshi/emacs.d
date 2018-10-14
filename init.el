@@ -100,7 +100,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (magit magit-annex magit-filenotify ssh vbasense))))
+ '(package-selected-packages
+   (quote
+    (migemo magit magit-annex magit-filenotify ssh vbasense))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -123,3 +125,46 @@
 
 
 
+;; sqlmode
+;;; SQL文の整形をする設定
+;; 実行する外部コマンド
+(setq sql-format-external-command
+  (concat "java -jar " (expand-file-name "~/.emacs.d/opt/sql-formatter/binary/sql-formatter-1.0.0-jar-with-dependencies.jar")))
+
+;; SQL文をフォーマットする関数
+(defun my-format-sql ()
+  "バッファまたはリージョン内のSQL文を整形する。"
+  (interactive)
+  (let (begin end)
+    (cond (mark-active
+           (setq begin (region-beginning))
+           (setq end (region-end)))
+          (t
+           (setq begin (point-min))
+           (setq end (point-max))))
+    (save-excursion
+      (shell-command-on-region
+       begin
+       end
+       sql-format-external-command
+       nil 
+       t ; replace buffer
+       ))))
+
+;; キーバインド設定
+(with-eval-after-load "sql"
+  (define-key sql-mode-map (kbd "C-S-f") 'my-format-sql))
+
+(define-key esc-map (kbd "d") 'ediff-buffes)
+
+
+;; migemo
+;;(require 'migemo)
+;;(setq migemo-dictionary "C:/Users/ys62.YSKAD/AppData/Roaming/.emacs.d/migemo/dict/cp932/migemo-dict")
+;;(setq migemo-command "cmigemo")
+;;(setq migemo-options '("-q" "--emacs" "-i" "\a"))
+;;(setq migemo-user-dictionary nil)
+;;(setq migemo-regex-dictionary nil)
+;;(setq migemo-coding-system 'utf-8-unix)
+;;(load-library "migemo")
+;;(migemo-init)
