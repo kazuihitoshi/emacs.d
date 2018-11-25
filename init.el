@@ -102,7 +102,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (migemo magit magit-annex magit-filenotify ssh vbasense))))
+    (js-auto-format-mode migemo magit magit-annex magit-filenotify ssh vbasense))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -123,7 +123,7 @@
 ;; M-x magit-init 
 (global-set-key (kbd "C-x g") 'magit-status)
 
-
+(add-hook 'js-mode-hook #'js-auto-format-mode)
 
 ;; sqlmode
 ;;; SQL文の整形をする設定
@@ -191,7 +191,7 @@
 
 ;; ウィンドウを透明にする
 ;; アクティブウィンドウ／非アクティブウィンドウ（alphaの値で透明度を指定）
-(add-to-list 'default-frame-alist '(alpha . (0.85 0.85)))
+;;(add-to-list 'default-frame-alist '(alpha . (0.9 0.85)))
 
 ;; メニューバーを消す
 ;;(menu-bar-mode -1)
