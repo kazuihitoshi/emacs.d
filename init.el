@@ -43,18 +43,21 @@
 ;; ファイルをWindowsの関連付けで開く
 (add-hook 'dired-load-hook (function (lambda ()
     (define-key dired-mode-map "w" 'dired-open-file)
+    (define-key dired-mode-map "W" 'dired-fullpath-clipboard)
 )))
 (defun dired-open-file ()
   "In dired, open the file named on this line."
   (interactive)
-  (let* ((file (dired-get-filename)))
-    (message "WindowsOpening %s..." file)
-   (call-process "cmd.exe" nil 0 nil "/c" "start" "" (convert-standard-filename file) )
-    (message "WindowsOpening %s done" file)
-   ))
-
-;;      (call-process-shell-command (convert-standard-filename file)  )
-;;   (call-process "cmd.exe" nil 0 nil "/c" "start" "" \"(convert-standard-filename file)\" )
+    (message "WindowsOpening %s..." (dired-get-filename))
+    (w32-shell-execute "open" (dired-get-filename))
+    (message "WindowsOpening %s done" (dired-get-filename))
+)
+(defun dired-fullpath-clipboard ()
+  "In dired, open the file named on this line."
+  (interactive)
+    (kill-new (convert-standard-filename (dired-get-filename)))
+    (message "clipboard %s" (convert-standard-filename (dired-get-filename)))
+)
    
 ;;等倍フォント設定
 ;;http://ongaeshi.hatenablog.com/entry/20110118/1295373477
@@ -75,7 +78,6 @@
 (setq visible-bell t)
 ;;find をcygwin64を優先で呼ぶ
 (setenv "PATH" (format "c:\\cygwin64\\bin;%s" (getenv "PATH")))
-
 ;;Emacs で全角スペース/タブ文字を可視化
 ;;http://weboo-returns.com/blog/emacs-shows-double-space-and-tab/
 (setq whitespace-style
@@ -91,7 +93,6 @@
 (set-face-background 'whitespace-space "DarkSlateGray")
 (set-face-foreground 'whitespace-tab "LightSlateGray")
 (set-face-background 'whitespace-tab "DarkSlateGray")
-
 (require 'package) ; パッケージ機能を有効にする
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t) ; MELPAリポジトリを追加する
 (package-initialize) ; インストールされているパッケージを初期化する
@@ -109,7 +110,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
 ;; git 
 (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
 ;; ssh putty
@@ -175,13 +175,14 @@
 
 (autoload 'visual-basic-mode "~/.emacs.d/opt/visual-basic-mode" "Visual Basic mode." t)
  (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\)$" .
-                                  visual-basic-mode)) auto-mode-alist))
+                                  visual-basic-mode)) auto-mode-alist ))
 ;;自動インデントを無効化
 (add-hook 'text-mode-hook '(lambda ()
 			      (electric-indent-local-mode -1)))
 (fset 'hogehoge
    "this is a pen\C-a")
 (global-set-key (kbd "M-k") 'hogehoge)
+
 
 
 ;; init.el reload
@@ -197,7 +198,7 @@
 ;;(menu-bar-mode -1)
 
 ;; ツールバーを消す
-(tool-bar-mode -1)
+;;(tool-bar-mode -1)
 
 
 ;; カーソル行をハイライトする
@@ -211,3 +212,6 @@
 
 (require 'tramp )
 (setq tramp-default-method "ssh")
+(put 'narrow-to-region 'disabled nil)
+;リージョン内置換
+(setq transient-mark-mode t)
