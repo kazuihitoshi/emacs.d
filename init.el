@@ -24,6 +24,8 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/web-mode"))
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.twig?\\'" . web-mode))
+
 ;;
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/yasnippet"))
 (require 'yasnippet)
@@ -73,7 +75,8 @@
         backup-directory-alist))
 
 (set-language-environment 'Japanese)
-(prefer-coding-system 'shift_jis)
+;(prefer-coding-system 'shift_jis)
+(prefer-coding-system 'utf-8)
 ;; 警告音の代わりに画面フラッシュ
 (setq visible-bell t)
 ;;find をcygwin64を優先で呼ぶ
@@ -94,6 +97,7 @@
 (set-face-foreground 'whitespace-tab "LightSlateGray")
 (set-face-background 'whitespace-tab "DarkSlateGray")
 (require 'package) ; パッケージ機能を有効にする
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t) ; MELPAリポジトリを追加する
 (package-initialize) ; インストールされているパッケージを初期化する
 (custom-set-variables
@@ -103,13 +107,16 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (js-auto-format-mode migemo magit magit-annex magit-filenotify ssh vbasense))))
+    (php-mode js-auto-format-mode migemo magit magit-annex magit-filenotify ssh vbasense))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;; php-mode
+(require 'php-mode)
+
 ;; git 
 (setq magit-git-executable "C:/Program Files/Git/bin/git.exe")
 ;; ssh putty
