@@ -25,6 +25,8 @@
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.twig?\\'" . web-mode))
+;; タブにスペースを使用する
+(setq-default tab-width 8 indent-tabs-mode nil)
 
 ;;
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/opt/yasnippet"))
@@ -75,8 +77,11 @@
         backup-directory-alist))
 
 (set-language-environment 'Japanese)
-;(prefer-coding-system 'shift_jis)
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'shift_jis)
+(modify-coding-system-alist 'file "\\.php\\'" 'utf-8)
+(modify-coding-system-alist 'file "\\.js\\'" 'utf-8)
+;;(modify-coding-system-alist 'file "\\.html\\'" 'utf-8)
+;(prefer-coding-system 'utf-8)
 ;; 警告音の代わりに画面フラッシュ
 (setq visible-bell t)
 ;;find をcygwin64を優先で呼ぶ
